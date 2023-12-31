@@ -30,3 +30,15 @@ http://localhost:8080/
 ```http
   GET /times
 ```
+
+#### Criar um time
+
+```http
+  POST /times/
+```
+
+| Parâmetro   | Tipo               | Descrição                                   |
+| :---------- | :----------------- | :------------------------------------------ |
+| `nomeTime`        | `string`           | **Obrigatório**. nome do time |
+| `cidade`       | `String`           | **Obrigatório**. cidade do time |
+| `estadio `      | `string`           | **Obrigatório**. nome do estadio |

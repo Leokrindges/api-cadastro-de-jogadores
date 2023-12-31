@@ -119,8 +119,6 @@ app.get('/times', (req, res) => {
 app.post('/times/', (req, res) => {
     const body = req.body
 
-    console.log(body);
-
     const novoTime = {
         idTime: uuidv4(),
         nomeTime: body.nomeTime,
