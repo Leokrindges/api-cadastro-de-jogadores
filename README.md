@@ -25,11 +25,16 @@ Essa api foi desenvolvida para fazer a listagem, cadastro, busca e exclusão de 
 ## URL base
 http://localhost:8080/
 
-#### Retorna uma lista de todos os times com seus devidos jogadores cadastrados.
+#### Retorna uma lista de todos os times com seus devidos jogadores cadastrados, sendo possivel passar um parametro opcional para busca.
 
 ```http
-  GET /times
+  GET /times/?nomeTime=
 ```
+
+| Parâmetro   | Tipo               | Descrição                                   |
+| :---------- | :----------------- | :------------------------------------------ |
+| `nomeTime`        | `string`           | **Opcional**. nome do time |
+
 
 #### Criar um time
 

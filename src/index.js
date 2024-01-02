@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 
 //gerador de ids
 import { v4 as uuidv4 } from 'uuid';
@@ -57,6 +57,8 @@ const times = [
                 posicao: 'Técnico',
             },
         ],
+    },
+    {
 
         idTime: uuidv4(),
         nomeTime: 'Internacional',
@@ -99,8 +101,6 @@ const times = [
                 posicao: 'Técnico',
             },
         ],
-
-
     }
 ]
 
@@ -110,9 +110,27 @@ app.get('/', (request, response) => {
 });
 
 //BUSCA TIMES E SEUS JOGADORES
-app.get('/times', (req, res) => {
-    return res.json(times);
+app.get('/times/', (req, res) => {
+    const nomeDoTime = req.query
+    const time = nomeDoTime.nomeTime
+    console.log(time);
 
+    //se a query vem vazia mostra todo o array
+    if (time === undefined) {
+        return res.status(200).json(times);
+    }
+
+    //filtra se o valor da query existe no array
+    const listaTime = times.filter((nome) => {
+        return nome.nomeTime.toLowerCase().includes(time.toLowerCase())
+    })
+
+    //se não existir time
+    if (listaTime.length === 0) {
+        return res.status(400).json("Time não encontrado!")
+    }
+    //se exisitr exibe o time
+    return res.status(200).json(listaTime);
 });
 
 //CRIA TIME
