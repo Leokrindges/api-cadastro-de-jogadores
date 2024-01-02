@@ -51,14 +51,14 @@ http://localhost:8080/
 
 
 #### Atualizar dados de um time.
-<p>É possivel atualizar somente a capacidade ou o estádio ou se preferir, pode atualizar os dois dados.</p>
 
 ```http
-  POST /times/:idTime?estadio=nome_Estadio&capacidade=capacidade_estadio
+  PUT /times/:idTime?estadio=nome_Estadio&capacidade=capacidade_estadio
 ```
+<p>É possivel atualizar somente a capacidade ou o estádio ou se preferir, pode atualizar os dois dados.</p>
 
 | Parâmetro   | Tipo               | Descrição                                   |
 | :---------- | :----------------- | :------------------------------------------ |
 | `idTime`        | `string`           | **Obrigatório**. id do time |
 | `estadio `      | `string`           | **Opcional**. nome do estadio |
-| `capacidade`       | `String`           | **Opcional**. capacidade do estadio |
+| `capacidade`       | `String`           | **Opcional**. capacidade do estádio |

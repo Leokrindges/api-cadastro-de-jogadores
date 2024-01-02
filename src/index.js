@@ -156,6 +156,8 @@ app.post('/times/', (req, res) => {
 
 })
 
+
+//ATUALIZA ESTÁDIO OU CAPACIDADE DO ESTÁDIO DE UM TIME
 app.put('/times/:idTime/', (req, res) => {
     const info = req.query
     const estadio = info.estadio;
@@ -185,7 +187,7 @@ app.put('/times/:idTime/', (req, res) => {
 
     //se não vier nenhum dado na query params emite erro, pois pelo menos um deve ser enviado
     if (estadio === undefined && capacidade === undefined) {
-        return res.status(400).json("Nome do estadio ou capacidade devem ser informados")
+        return res.status(400).json("Nome do estádio ou capacidade devem ser informados")
     }
 
     res.status(200).json("Atualizado com sucesso!")
