@@ -47,7 +47,7 @@ http://localhost:8080/
 | `nomeTime`        | `string`           | **Obrigatório**. nome do time |
 | `cidade`       | `String`           | **Obrigatório**. cidade do time |
 | `estadio `      | `string`           | **Obrigatório**. nome do estadio |
-| `capacidade `      | `string`           | **Obrigatório**. capacidade do estadio |
+| `capacidade `      | `integer`           | **Obrigatório**. capacidade do estadio |
 
 
 #### Atualizar dados de um time.
@@ -61,4 +61,4 @@ http://localhost:8080/
 | :---------- | :----------------- | :------------------------------------------ |
 | `idTime`        | `string`           | **Obrigatório**. id do time |
 | `estadio `      | `string`           | **Opcional**. nome do estadio |
-| `capacidade`       | `String`           | **Opcional**. capacidade do estádio |
+| `capacidade`       | `integer`           | **Opcional**. capacidade do estádio |
