@@ -13,6 +13,7 @@ const times = [
         nomeTime: 'Grêmio',
         cidade: 'Porto Alegre',
         estadio: 'Arena do Grêmio',
+        capacidade: 55000,
         jogadores: [
             {
                 idJogador: uuidv4(),
@@ -64,6 +65,7 @@ const times = [
         nomeTime: 'Internacional',
         cidade: 'Porto Alegre',
         estadio: 'Beira Rio',
+        capacidade: 50000,
         jogadores: [
             {
                 idJogador: uuidv4(),
@@ -111,17 +113,17 @@ app.get('/', (request, response) => {
 
 //BUSCA TIMES E SEUS JOGADORES
 app.get('/times/', (req, res) => {
-    const nomeDoTime = req.query
-    const time = nomeDoTime.nomeTime
+    const nomeDoTime = req.query.nomeTime
+
 
     //se a query vem vazia mostra todo o array
-    if (time === undefined) {
+    if (nomeDoTime === undefined) {
         return res.status(200).json(times);
     }
 
     //filtra se o valor da query existe no array
     const listaTime = times.filter((nome) => {
-        return nome.nomeTime.toLowerCase().includes(time.toLowerCase())
+        return nome.nomeTime.toLowerCase().includes(nomeDoTime.toLowerCase())
     })
 
     //se não existir time
@@ -152,6 +154,41 @@ app.post('/times/', (req, res) => {
     times.push(novoTime)
     return res.status(200).json('Time criado com sucesso!')
 
+})
+
+app.put('/times/:idTime/', (req, res) => {
+    const info = req.query
+    const estadio = info.estadio;
+    const capacidade = info.capacidade;
+    const timeId = req.params.idTime
+
+    //procura um id que seja igual ao passado na route params
+    const pegaPosicaoDoTime = times.findIndex(time => {
+        return time.idTime === timeId
+    })
+
+    //se não encontrar id igual
+    if (pegaPosicaoDoTime === -1) {
+        return res.status(400).json("Time não encontrado!")
+    }
+
+    //se a query parms não vier vazia atribui o valor 
+    if (estadio != undefined) {
+        times[pegaPosicaoDoTime].estadio = estadio
+
+    }
+
+    //se a query parms não vier vazia atribui o valor 
+    if (capacidade != undefined) {
+        times[pegaPosicaoDoTime].capacidade = capacidade
+    }
+
+    //se não vier nenhum dado na query params emite erro, pois pelo menos um deve ser enviado
+    if (estadio === undefined && capacidade === undefined) {
+        return res.status(400).json("Nome do estadio ou capacidade devem ser informados")
+    }
+
+    res.status(200).json("Atualizado com sucesso!")
 })
 
 app.listen(8080, () => console.log("Servidor iniciado"));

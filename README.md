@@ -47,3 +47,18 @@ http://localhost:8080/
 | `nomeTime`        | `string`           | **Obrigatório**. nome do time |
 | `cidade`       | `String`           | **Obrigatório**. cidade do time |
 | `estadio `      | `string`           | **Obrigatório**. nome do estadio |
+| `capacidade `      | `string`           | **Obrigatório**. capacidade do estadio |
+
+
+#### Atualizar dados de um time.
+<p>É possivel atualizar somente a capacidade ou o estádio ou se preferir, pode atualizar os dois dados.</p>
+
+```http
+  POST /times/:idTime?estadio=nome_Estadio&capacidade=capacidade_estadio
+```
+
+| Parâmetro   | Tipo               | Descrição                                   |
+| :---------- | :----------------- | :------------------------------------------ |
+| `idTime`        | `string`           | **Obrigatório**. id do time |
+| `estadio `      | `string`           | **Opcional**. nome do estadio |
+| `capacidade`       | `String`           | **Opcional**. capacidade do estadio |
