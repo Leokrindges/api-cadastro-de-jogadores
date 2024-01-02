@@ -113,7 +113,6 @@ app.get('/', (request, response) => {
 app.get('/times/', (req, res) => {
     const nomeDoTime = req.query
     const time = nomeDoTime.nomeTime
-    console.log(time);
 
     //se a query vem vazia mostra todo o array
     if (time === undefined) {
@@ -137,6 +136,12 @@ app.get('/times/', (req, res) => {
 app.post('/times/', (req, res) => {
     const body = req.body
 
+    if (!body.nomeTime) return res.status(400).json("Nome do time não informado!")
+
+    if (!body.cidade) return res.status(400).json("Nome da cidade não informada!")
+
+    if (!body.estadio) return res.status(400).json("Nome do estadio não informado!")
+
     const novoTime = {
         idTime: uuidv4(),
         nomeTime: body.nomeTime,
@@ -145,7 +150,7 @@ app.post('/times/', (req, res) => {
         jogadores: []
     }
     times.push(novoTime)
-    return res.status(200).json(times)
+    return res.status(200).json('Time criado com sucesso!')
 
 })
 
