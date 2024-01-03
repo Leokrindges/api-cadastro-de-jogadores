@@ -25,6 +25,36 @@ Essa api foi desenvolvida para fazer a listagem, cadastro, busca e exclusão de 
 ## URL base
 http://localhost:8080/
 
+
+#### Login
+```http
+  POST /login/
+```
+
+| Parâmetro   | Tipo               | Descrição                                   |
+| :---------- | :----------------- | :------------------------------------------ |
+| `email`        | `string`           | **Obrigatório**. email do usuário |
+| `senha`       | `String`           | **Obrigatório**. senha do usuário |
+
+
+#### Criar um usuário
+
+```http
+  POST /novaconta/
+```
+
+| Parâmetro   | Tipo               | Descrição                                   |
+| :---------- | :----------------- | :------------------------------------------ |
+| `nome`        | `string`           | **Obrigatório**. nome do usuário |
+| `email`       | `String`           | **Obrigatório**. email do usuário |
+| `senha `      | `string`           | **Obrigatório**. senha do usuário |
+
+#### Busca um usuário
+
+```http
+  GET /usuarios/
+```
+
 #### Retorna uma lista de todos os times com seus devidos jogadores cadastrados, sendo possivel passar um parametro opcional para busca.
 
 ```http
@@ -62,3 +92,14 @@ http://localhost:8080/
 | `idTime`        | `string`           | **Obrigatório**. id do time |
 | `estadio `      | `string`           | **Opcional**. nome do estadio |
 | `capacidade`       | `integer`           | **Opcional**. capacidade do estádio |
+
+
+#### Deleta um time.
+
+```http
+  DELTE /times/
+```
+
+| Parâmetro   | Tipo               | Descrição                                   |
+| :---------- | :----------------- | :------------------------------------------ |
+| `idTime`        | `string`           | **Obrigatório**. id do time |

@@ -106,15 +106,74 @@ const times = [
     }
 ]
 
+const usuarios = [
+    {
+        idUsuario: uuidv4(),
+        nome: 'Leonardo Krindges',
+        senha: '1234',
+        email: 'leonardo@mail.com'
+    },
+    {
+        idUsuario: uuidv4(),
+        nome: 'Jéssica Stein',
+        senha: '12345',
+        email: 'jessica@mail.com'
+    }
+]
 app.get('/', (request, response) => {
     return response.json('OK');
 
 });
 
+//LOGIN
+app.post('/login', (req, res) => {
+    const body = req.body
+
+    if (!body.email) return res.status(400).json("E-mail não informado.")
+    if (!body.senha) return res.status(400).json("Senha não informada.")
+
+    const pegaUsuario = usuarios.find(usuario => {
+        return usuario.email === body.email && usuario.senha === body.senha
+    })
+
+    if (!pegaUsuario) return res.status(401).json("Credenciais inválidas!")
+
+    return res.status(200).json(pegaUsuario.idUsuario)
+})
+
+//CRIAR USUARIO
+app.post('/novaconta/', (req, res) => {
+    const dadosUsuario = req.body
+
+    const verificaSeExisteUsuario = usuarios.find(usuario => {
+        return usuario.email === dadosUsuario.email
+    })
+
+    if (verificaSeExisteUsuario) return res.status(400).json("E-mail já cadastrado")
+    if (dadosUsuario.nome === undefined) return res.status(400).json('Nome inválido!')
+    if (dadosUsuario.email === undefined) return res.status(400).json('E-mail inválido!')
+    if (dadosUsuario.senha === undefined) return res.status(400).json('Senha inválida!')
+
+    const novoUsuario = {
+        idUsuario: uuidv4(),
+        nome: dadosUsuario.nome,
+        email: dadosUsuario.email,
+        senha: dadosUsuario.senha,
+    }
+
+    usuarios.push(novoUsuario)
+    return res.status(200).json("Usuário cadastrado com sucesso!")
+
+})
+
+//BUSCA USUARIOS
+app.get('/usuarios/', (req, res) => {
+    return res.status(200).json(usuarios)
+})
+
 //BUSCA TIMES E SEUS JOGADORES
 app.get('/times/', (req, res) => {
     const nomeDoTime = req.query.nomeTime
-
 
     //se a query vem vazia mostra todo o array
     if (nomeDoTime === undefined) {
@@ -191,6 +250,24 @@ app.put('/times/:idTime/', (req, res) => {
     }
 
     res.status(200).json("Atualizado com sucesso!")
+})
+
+//DELETA TIME
+app.delete('/times/', (req, res) => {
+    const timeId = req.headers.Authorization
+
+    console.log(timeId);
+    const pegaTime = times.findIndex(time => {
+        return time.idTime === timeId
+    })
+
+    if (pegaTime === -1) {
+        return res.status(400).json('Time não encontrado')
+    }
+
+    times.splice(pegaTime, 1)
+    return res.status(200).json("Time apagado com sucesso!")
+
 })
 
 app.listen(8080, () => console.log("Servidor iniciado"));
