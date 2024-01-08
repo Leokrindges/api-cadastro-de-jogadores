@@ -74,6 +74,7 @@ http://localhost:8080/
 
 | Parâmetro   | Tipo               | Descrição                                   |
 | :---------- | :----------------- | :------------------------------------------ |
+| `idUsuario`        | `string`           | **Obrigatório**. ID do usuario |
 | `nomeTime`        | `string`           | **Obrigatório**. nome do time |
 | `cidade`       | `String`           | **Obrigatório**. cidade do time |
 | `estadio `      | `string`           | **Obrigatório**. nome do estadio |
@@ -89,6 +90,7 @@ http://localhost:8080/
 
 | Parâmetro   | Tipo               | Descrição                                   |
 | :---------- | :----------------- | :------------------------------------------ |
+| `idUsuario`        | `string`           | **Obrigatório**. ID do usuario |
 | `idTime`        | `string`           | **Obrigatório**. id do time |
 | `estadio `      | `string`           | **Opcional**. nome do estadio |
 | `capacidade`       | `integer`           | **Opcional**. capacidade do estádio |
@@ -102,4 +104,5 @@ http://localhost:8080/
 
 | Parâmetro   | Tipo               | Descrição                                   |
 | :---------- | :----------------- | :------------------------------------------ |
+| `idUsuario`        | `string`           | **Obrigatório**. ID do usuario |
 | `idTime`        | `string`           | **Obrigatório**. id do time |
