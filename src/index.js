@@ -125,6 +125,24 @@ app.get('/', (request, response) => {
 
 });
 
+//AUTENTICAÇÃO
+const autenticacao = function (req, res, next) {
+    let id = req.headers.authorization
+
+    if (id.includes('Bearer')) {
+        id = id.split(' ')[1]
+    }
+
+
+    const existeNaLista = usuarios.find(usuario => usuario.idUsuario === id)
+
+    if (!existeNaLista) return res.status(403).json("Usuário não autenticado!")
+
+    //caso de sucesso passa a executar a rota
+    next()
+
+}
+
 //LOGIN
 app.post('/login', (req, res) => {
     const body = req.body
@@ -173,6 +191,7 @@ app.get('/usuarios/', (req, res) => {
 
 //BUSCA TIMES E SEUS JOGADORES
 app.get('/times/', (req, res) => {
+    //filtragem opcional por nome do tme
     const nomeDoTime = req.query.nomeTime
 
     //se a query vem vazia mostra todo o array
@@ -194,7 +213,7 @@ app.get('/times/', (req, res) => {
 });
 
 //CRIA TIME
-app.post('/times/', (req, res) => {
+app.post('/times/', autenticacao, (req, res) => {
     const body = req.body
 
     if (!body.nomeTime) return res.status(400).json("Nome do time não informado!")
@@ -217,7 +236,7 @@ app.post('/times/', (req, res) => {
 
 
 //ATUALIZA ESTÁDIO OU CAPACIDADE DO ESTÁDIO DE UM TIME
-app.put('/times/:idTime/', (req, res) => {
+app.put('/times/:idTime/', autenticacao, (req, res) => {
     const info = req.query
     const estadio = info.estadio;
     const capacidade = info.capacidade;
@@ -253,12 +272,12 @@ app.put('/times/:idTime/', (req, res) => {
 })
 
 //DELETA TIME
-app.delete('/times/', (req, res) => {
-    const timeId = req.headers.Authorization
+app.delete('/times/:idTime', autenticacao, (req, res) => {
+    const id = req.params.idTime
 
-    console.log(timeId);
+    console.log(id);
     const pegaTime = times.findIndex(time => {
-        return time.idTime === timeId
+        return time.idTime === id
     })
 
     if (pegaTime === -1) {
